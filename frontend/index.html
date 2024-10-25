@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Messaging App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        #messages {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .message-item {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Blockchain Messaging App</h1>
+        <button id="login">Connect Wallet</button>
+        <p id="account">Not connected</p>
+
+        <form id="sendMessageForm" style="display: none;">
+            <input type="text" id="recipient" placeholder="Recipient Address" />
+            <textarea id="message" placeholder="Enter your message"></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div id="messages">
+            <!-- Display messages here -->
+        </div>
+    </div>
+
+    <script src="web3.min.js"></script> <!-- Add web3.js to interact with Ethereum -->
+    <script src="AES.js"></script> <!-- Your provided AES.js for encryption -->
+    <script src="app.js"></script> <!-- Main app logic -->
+
+</body>
+</html>
