@@ -36,10 +36,10 @@ loginButton.addEventListener('click', async () => {
 const web3 = new Web3(window.ethereum);
 
 // Contract addresses and ABI (Add your deployed addresses here)
-const messagesContractAddress = "YOUR_MESSAGES_CONTRACT_ADDRESS"; // Replace with actual contract address
-const registrationContractAddress = "YOUR_REGISTRATION_CONTRACT_ADDRESS"; // Replace with actual contract address
+const messagesContractAddress = "CONTRACT_ADDRESS"; // Replace with actual contract address
+const registrationContractAddress = "CONTRACT_ADDRESS"; // Replace with actual contract address
 
-// Contract ABIs (Replace these with the actual ABIs of the smart contracts)
+// Contract ABIs
 const messagesAbi = [
   {
     "inputs": [],
@@ -145,7 +145,7 @@ const registrationAbi = [
   }
 ];
 
-// Contract instances
+// Contracts
 const messagesContract = new web3.eth.Contract(messagesAbi, messagesContractAddress);
 const registrationContract = new web3.eth.Contract(registrationAbi, registrationContractAddress);
 
@@ -157,20 +157,20 @@ const aesKey = CryptoJS.PBKDF2(passphrase, salt, {
   iterations: 1000   // Number of iterations (increases security)
 });
 
-// Function to encrypt the message using AES
+// encrypt the message using AES
 function encryptMessage(message, aesKey) {
   const encryptedMessage = CryptoJS.AES.encrypt(message, aesKey.toString()).toString();
   return encryptedMessage;
 }
 
-// Function to decrypt the message using AES
+// decrypt the message using AES
 function decryptMessage(encryptedMessage, aesKey) {
   const bytes = CryptoJS.AES.decrypt(encryptedMessage, aesKey.toString());
   const decryptedMessage = bytes.toString(CryptoJS.enc.Utf8);
   return decryptedMessage;
 }
 
-// Check if user is registered, if not register them
+// Check if registered, if not register them
 async function checkAndRegisterUser() {
   try {
       const isRegistered = await registrationContract.methods.isRegistered().call({ from: userAccount });
