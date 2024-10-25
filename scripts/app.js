@@ -35,7 +35,7 @@ loginButton.addEventListener('click', async () => {
 // Web3.js initialization
 const web3 = new Web3(window.ethereum);
 
-// Contract addresses and ABI (Add your deployed addresses here)
+// Contract addresses and ABI
 const messagesContractAddress = "CONTRACT_ADDRESS"; // Replace with actual contract address
 const registrationContractAddress = "CONTRACT_ADDRESS"; // Replace with actual contract address
 
