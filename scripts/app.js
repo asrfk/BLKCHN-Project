@@ -5,7 +5,6 @@ if (typeof window.ethereum !== 'undefined') {
   alert('Please install MetaMask to use this app');
 }
 
-// Connect to Ethereum wallet and handle registration/login
 const loginButton = document.getElementById('login');
 const accountDisplay = document.getElementById('account');
 const sendMessageForm = document.getElementById('sendMessageForm');
@@ -14,32 +13,32 @@ let userAccount = '';
 
 loginButton.addEventListener('click', async () => {
   try {
-      // Request user's account via MetaMask
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      userAccount = accounts[0];
-      accountDisplay.innerText = `Connected: ${userAccount}`;
+    // Request user's account via MetaMask
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    userAccount = accounts[0];
+    accountDisplay.innerText = `Connected: ${userAccount}`;
 
-      // Check registration status and register if necessary
-      await checkAndRegisterUser();
+    // Check registration status and register if necessary
+    await checkAndRegisterUser();
 
-      // Show the message form once logged in
-      sendMessageForm.style.display = 'block';
+    // Show the message form once logged in
+    sendMessageForm.style.display = 'block';
 
-      // Fetch messages for the logged-in user (recipient)
-      fetchMessages();
+    // Fetch messages for the logged-in user (recipient)
+    fetchMessages();
   } catch (error) {
-      console.error('Error connecting to MetaMask or registering user:', error);
+    console.error('Error connecting to MetaMask or registering user:', error);
   }
 });
 
 // Web3.js initialization
 const web3 = new Web3(window.ethereum);
 
-// Contract addresses and ABI
-const messagesContractAddress = "CONTRACT_ADDRESS"; // Replace with actual contract address
-const registrationContractAddress = "CONTRACT_ADDRESS"; // Replace with actual contract address
+// Contract addresses
+const messagesContractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";  // Replace with deployed Messages contract address
+const registrationContractAddress = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512";  // Replace with deployed Registration contract address
 
-// Contract ABIs
+// Contract ABIs (same as before, no changes)
 const messagesAbi = [
   {
     "inputs": [],
@@ -102,7 +101,6 @@ const messagesAbi = [
     "type": "function"
   }
 ];
-
 const registrationAbi = [
   {
     "inputs": [],
@@ -149,21 +147,19 @@ const registrationAbi = [
 const messagesContract = new web3.eth.Contract(messagesAbi, messagesContractAddress);
 const registrationContract = new web3.eth.Contract(registrationAbi, registrationContractAddress);
 
-// Generate AES Key using PBKDF2 and passphrase
-const passphrase = 'user-specific-passphrase'; // Use a secure passphrase
-const salt = CryptoJS.lib.WordArray.random(128 / 8); // Generate a random salt
+// AES Key generation and message encryption (no changes needed)
+const passphrase = 'user-specific-passphrase';
+const salt = CryptoJS.lib.WordArray.random(128 / 8);
 const aesKey = CryptoJS.PBKDF2(passphrase, salt, {
-  keySize: 128 / 32, // 128-bit AES key
-  iterations: 1000   // Number of iterations (increases security)
+  keySize: 128 / 32,
+  iterations: 1000
 });
 
-// encrypt the message using AES
 function encryptMessage(message, aesKey) {
   const encryptedMessage = CryptoJS.AES.encrypt(message, aesKey.toString()).toString();
   return encryptedMessage;
 }
 
-// decrypt the message using AES
 function decryptMessage(encryptedMessage, aesKey) {
   const bytes = CryptoJS.AES.decrypt(encryptedMessage, aesKey.toString());
   const decryptedMessage = bytes.toString(CryptoJS.enc.Utf8);
