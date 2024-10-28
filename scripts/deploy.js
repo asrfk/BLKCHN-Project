@@ -5,18 +5,15 @@ async function main() {
     const Messages = await ethers.getContractFactory("Messages");
     const Registration = await ethers.getContractFactory("Registration");
 
-    // Deploy contracts
+    // Deploy contracts and get contract addresses
     const messages = await Messages.deploy();
     const registration = await Registration.deploy();
 
-    await messages.deployed();
-    await registration.deployed();
-
+    // Log contract addresses after deployment
     console.log("Messages contract deployed to:", messages.address);
     console.log("Registration contract deployed to:", registration.address);
 }
 
-// Run the deployment script
 main()
     .then(() => process.exit(0))
     .catch((error) => {
