@@ -35,8 +35,8 @@ loginButton.addEventListener('click', async () => {
 const web3 = new Web3(window.ethereum);
 
 // Contract addresses
-const messagesContractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";  // Replace with deployed Messages contract address
-const registrationContractAddress = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512";  // Replace with deployed Registration contract address
+const messagesContractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";  // Replace
+const registrationContractAddress = "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512";  // Replace 
 
 // Contract ABIs (same as before, no changes)
 const messagesAbi = [
