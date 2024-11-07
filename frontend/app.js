@@ -202,23 +202,33 @@ sendMessageForm.addEventListener('submit', async (e) => {
 // Fetch and decrypt messages for the logged-in user
 async function fetchMessages() {
   try {
-      const messages = await messagesContract.methods.getMessagesForRecipient().call({ from: userAccount });
-      const decryptedMessages = messages.map((msg) => decryptMessage(msg, aesKey)); // Decrypt each message
-      displayMessages(decryptedMessages);
+    // Fetch messages
+    const messages = await messagesContract.methods.getMessagesForRecipient().call({ from: userAccount });
+    console.log('Fetched messages:', messages); // Log raw fetched messages
+
+    // Decrypt each message
+    const decryptedMessages = messages.map((msg) => decryptMessage(msg, aesKey));
+    console.log('Decrypted messages:', decryptedMessages); // Log decrypted messages
+
+    // Display the decrypted messages
+    displayMessages(decryptedMessages);
   } catch (error) {
-      console.error('Error fetching messages:', error);
+    console.error('Error fetching messages:', error);
   }
 }
 
 function displayMessages(messages) {
-  const messagesDiv = document.getElementById('messages');
-  messagesDiv.innerHTML = '';
+  const messageList = document.getElementById('messageList');
+  messageList.innerHTML = ''; // Clear previous messages
+
   messages.forEach((message, index) => {
-      const messageElement = document.createElement('p');
-      messageElement.textContent = `Message ${index + 1}: ${message}`;
-      messagesDiv.appendChild(messageElement);
+    const messageElement = document.createElement('p');
+    messageElement.classList.add('message-item');
+    messageElement.textContent = `Message ${index + 1}: ${message}`;
+    messageList.appendChild(messageElement);
   });
 }
+
 
 // Fetch messages on page load
 fetchMessages();
